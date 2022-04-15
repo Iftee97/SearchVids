@@ -1,5 +1,11 @@
-download or clone
+tawsifhaque-searchvids.netlify.app/
 
-npm install 
+To make and push changes to github repo using git:
 
-npm start
+  git clone 
+
+  git add .
+ 
+  git commit -m ""
+
+  git push
