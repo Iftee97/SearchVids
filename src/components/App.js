@@ -25,6 +25,10 @@ class App extends Component {
         // console.log("From the app:", video);
         this.setState({ selectedVideo: video });
     };
+    
+    componentDidMount() {
+        this.onTermSubmit("happy dogs");
+    }
 
     render() {
         return (
