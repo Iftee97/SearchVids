@@ -1,5 +1,6 @@
 
 To make and push changes to github repo using git:
+--------------------------------------------------
 
   git clone https://github.com/Iftee97/SearchVids.git
   
@@ -12,3 +13,15 @@ To make and push changes to github repo using git:
   git commit -m ""
 
   git push OR, git push origin branchName
+
+
+------------------------------------------------------------
+------------------------------------------------------------
+
+
+VIEW THE PROJECT:
+-----------------
+
+https://search-vids.vercel.app/
+
+https://tawsifhaque-searchvids.netlify.app/
