@@ -1,58 +1,53 @@
-import axios from "axios";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
+import axios from "axios";
 
-class App extends Component {
-    state = {
-        videos: [],
-        selectedVideo: null
-    };
+const App = () => {
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
-    onTermSubmit = async (term) => {
-        const apiKey = "AIzaSyAEfpGInlEYnnbZB3bDtIslo74tGo6J6QQ";
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&key=${apiKey}&q=${term}`);
+  const onTermSubmit = async (term) => {
+    const apiKey = "AIzaSyAEfpGInlEYnnbZB3bDtIslo74tGo6J6QQ";
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&key=${apiKey}&q=${term}`
+    );
 
-        // console.log(response.data.items);
-        this.setState({
-            videos: response.data.items,
-            selectedVideo: response.data.items[0]
-        });
-    };
+    // console.log(response.data.items);
+    setVideos(response.data.items);
+    setSelectedVideo(response.data.items[0]);
+  };
 
-    onVideoSelect = (video) => {
-        // console.log("From the app:", video);
-        this.setState({ selectedVideo: video });
-    };
-    
-    componentDidMount() {
-        this.onTermSubmit("happy dogs");
-    }
+  const onVideoSelect = (video) => {
+    // console.log("From the app:", video);
+    setSelectedVideo(video);
+  };
 
-    render() {
-        return (
-            <div className="ui container">
-                <SearchBar onTermSubmit={this.onTermSubmit} />
+  useEffect(() => {
+    onTermSubmit("happy dogs");
+  }, []);
 
-                <div className="ui grid">
-                    <div className="ui row">
-                        <div className="eleven wide column">
-                            <VideoDetail video={this.state.selectedVideo} />
-                        </div>
-                        
-                        <div className="five wide column">
-                            <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.videos} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+  return (
+    <div className="ui container">
+      <SearchBar onTermSubmit={onTermSubmit} />
+
+      <div className="ui grid">
+        <div className="ui row">
+          <div className="eleven wide column">
+            <VideoDetail video={selectedVideo} />
+          </div>
+
+          <div className="five wide column">
+            <VideoList onVideoSelect={onVideoSelect} videos={videos} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App;
 
 // YT API key: AIzaSyAEfpGInlEYnnbZB3bDtIslo74tGo6J6QQ
 // API Call: https://www.googleapis.com/youtube/v3/search
-
