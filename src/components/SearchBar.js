@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import { searchVideos } from "../api"
+import { useVideosContext } from "../hooks/useVideosContext"
 
-const SearchBar = ({ onTermSubmit }) => {
-  const [term, setTerm] = useState("");
+const SearchBar = () => {
+  const [term, setTerm] = useState("")
+  const { dispatch } = useVideosContext()
 
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-    onTermSubmit(term);
-  };
+  const onFormSubmit = async (event) => {
+    event.preventDefault()
+    const videos = await searchVideos(term)
+    dispatch({ type: "SET_VIDEOS", payload: videos })
+    dispatch({ type: "SET_SELECTED_VIDEO", payload: videos[0] })
+  }
 
   return (
     <div className="search-bar ui segment">
@@ -22,7 +27,7 @@ const SearchBar = ({ onTermSubmit }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

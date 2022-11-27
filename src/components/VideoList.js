@@ -1,18 +1,15 @@
-import React from "react";
-import VideoItem from "./VideoItem";
+import React from "react"
+import VideoItem from "./VideoItem"
+import { useVideosContext } from "../hooks/useVideosContext"
 
-const VideoList = ({ videos, onVideoSelect }) => {
-  const renderedList = videos.map((video) => {
-    return (
-      <VideoItem
-        onVideoSelect={onVideoSelect}
-        video={video}
-        key={video.id.videoId}
-      />
-    );
-  });
+const VideoList = () => {
+  const { videos } = useVideosContext()
 
-  return <div className="ui relaxed divided list">{renderedList}</div>;
-};
+  return <div className="ui relaxed divided list">
+    {videos && videos.map((video) => (
+      <VideoItem video={video} key={video.id.videoId} />
+    ))}
+  </div>
+}
 
-export default VideoList;
+export default VideoList
