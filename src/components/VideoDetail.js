@@ -7,14 +7,15 @@ const VideoDetail = () => {
   if (!selectedVideo) {
     return <div>Loading...</div>
   }
-  const videoSrc = selectedVideo && selectedVideo.id && selectedVideo.id.videoId ? `https://www.youtube.com/embed/${selectedVideo.id.videoId}` : ""
-  const videoTitle = selectedVideo && selectedVideo.snippet && selectedVideo.snippet.title ? selectedVideo.snippet.title : ""
-  const videoDescription = selectedVideo && selectedVideo.snippet && selectedVideo.snippet.description ? selectedVideo.snippet.description : ""
+
+  const videoSrc = `https://www.youtube.com/embed/${selectedVideo?.id?.videoId}`
+  const videoTitle = selectedVideo?.snippet?.title
+  const videoDescription = selectedVideo?.snippet?.description
 
   return (
     <div>
       <div className="ui embed">
-        <iframe src={videoSrc} title="video player" />
+        <iframe src={videoSrc} title={videoTitle} />
       </div>
 
       <div className="ui segment">
